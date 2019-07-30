@@ -14,8 +14,6 @@ export default class AuthService {
             window.localStorage.setItem('user', JSON.stringify(data.user))
             this.setAxiosDefaultAuthorizationHeader()
             return data.user;
-        }).catch(e => {
-            console.log(e)
         })
     }
 
@@ -36,11 +34,6 @@ export default class AuthService {
 
     register(user) {
         return axios.post('http://localhost:8000/api/register', user)
-        .then(r => {
-            console.log(r)
-        }).catch(e => {
-            console.log(e)
-        })
     }
 }
 
