@@ -1,12 +1,37 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/">Gradebooks</router-link> |
+      <router-link v-if="!checker" to="/login">Login |</router-link>
+      <a><span @click="logoutUser" v-if="checker"> Logout | </span></a>
+      <router-link to="/register"> Register</router-link> |
+      <router-link to="/teachers">All teachers</router-link> |
+      <router-link to="/my-gradebook">My Gradebook</router-link> |
+      <router-link to="/gradebooks/create">Add gradebook</router-link> |
+      <router-link to="/professors/create">Add professor</router-link> 
     </div>
     <router-view/>
   </div>
 </template>
+
+<script>
+import { authService } from "./services/AuthService"
+
+export default {
+  methods: {
+    logoutUser() {
+      authService.logout();
+      this.$router.push("/");
+    }
+  },
+  computed: {
+    checker() {
+      return authService.isAuthenticated();
+    }
+  }
+}
+</script>
+
 
 <style>
 #app {
@@ -17,4 +42,9 @@
   color: #2c3e50;
   margin-top: 60px;
 }
+
+span {
+  color: #007bff;
+}
+
 </style>
