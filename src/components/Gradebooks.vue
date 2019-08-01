@@ -1,18 +1,35 @@
 <template>
-  <div>
-    <input type="text" placeholder="Search.." v-model="term">
+  <div class="container">
+    <br />
+    <input
+      class="form-control"
+      style="width:30%; margin:auto;"
+      type="text"
+      placeholder="Search.."
+      v-model="term"
+    />
+    <br />
+    <p v-if="gradebooksCounter < 1">Nema dnevnika</p>
     <ul class="list-group">
       <li class="list-group-item" v-for="(gradebook, index) in filteredGradebooks" :key="index">
-        <router-link :to="singleGradebook(gradebook)">{{ `Razred : ${gradebook.name}` }}</router-link>
-        <router-link :to="singleProfessor(gradebook)">
-          {{ ` Profesor : ${gradebook.professor.user.first_name + ' ' + gradebook.professor.user.last_name}`
-          ? ` Profesor : ${gradebook.professor.user.first_name + ' ' + gradebook.professor.user.last_name}`
-          : 'Nema odredjenog staresinu' }}
-        </router-link>
-        {{ `Kreiran : ${gradebook.created_at}` }}
+        <div>
+          <h3>
+            <router-link :to="singleGradebook(gradebook)">{{ `Razred : ${gradebook.name}` }}</router-link>
+          </h3>
+          <h4>
+            <router-link
+              :to="singleProfessor(gradebook)"
+              v-if="gradebook.professor.user.id !== null"
+            >
+              {{ ` Profesor : ${gradebook.professor.user.first_name + ' ' + gradebook.professor.user.last_name}`
+              ? ` Profesor : ${gradebook.professor.user.first_name + ' ' + gradebook.professor.user.last_name}`
+              : 'Nema odredjenog staresinu' }}
+            </router-link>
+          </h4>
+          <h5>{{ `Kreiran : ${gradebook.created_at}` }}</h5>
+        </div>
       </li>
     </ul>
-    <p v-if="gradebooks.count === 0">Nema dnevnika</p>
   </div>
 </template>
 
@@ -23,7 +40,7 @@ export default {
   data() {
     return {
       gradebooks: [],
-      term : ''
+      term: ""
     };
   },
   methods: {
@@ -32,16 +49,20 @@ export default {
     },
 
     singleProfessor(gradebook) {
-      return `/professor/${gradebook.professor_id}`;
+      return `/teachers/${gradebook.professor_id}`;
     }
   },
 
   computed: {
     filteredGradebooks() {
       return this.gradebooks.filter(gradebook => {
-          return gradebook.name.toLowerCase().includes(this.term.toLowerCase())
+        return gradebook.name.toLowerCase().includes(this.term.toLowerCase());
       });
     },
+
+    gradebooksCounter() {
+      return this.gradebooks.length;
+    }
   },
 
   beforeRouteEnter(to, from, next) {

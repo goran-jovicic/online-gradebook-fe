@@ -1,39 +1,61 @@
 <template>
   <div>
-    <h1> {{gradebook.name}} </h1>
-    <p> {{ `Razredni: ${gradebook.professor.user.first_name} ${gradebook.professor.user.last_name}` }} </p>
-    <ul class="list-group">
-      <li class="list-group-item" v-for="(data, index) in gradebook" :key="index">
-        {{data}}
-      </li>
+    <button class="btn btn-primary" @click="handleAddStudent">Add new Students</button>
+    <h1>{{ gradebook.name }}</h1>
+    <h2
+      v-if="gradebook && gradebook.professor"
+    >{{ `Razredni: ${gradebook.professor.user.first_name} ${gradebook.professor.user.last_name}` }}</h2>
+    <h2 v-else>Nema razrednog staresinu</h2>
+    <h2 v-if="studentCount == 0">Nema trenutno studenata</h2>
+    <ul v-if="studentCount > 0" class="list-group">
+      Studenti:
+      <li
+        class="list-group-item list-group-item-primary"
+        style="width: 50%; margin:auto;"
+        v-for="(student, index) in gradebook.students"
+        :key="index"
+      >{{ `${student.first_name} ${student.last_name}` }}</li>
     </ul>
   </div>
 </template>
 
 <script>
-import { gradebookService } from '../services/GradebookService'
+import { gradebookService } from "../services/GradebookService";
 
 export default {
   data() {
     return {
-      gradebook : {}
+      gradebook: {}
+    };
+  },
+
+  methods: {
+    handleAddStudent() {
+      let id = this.$route.params.id;
+      this.$router.push(`/gradebooks/${id}/students/create`);
     }
   },
 
-  created () {
-    let id = this.$route.params.id
-    gradebookService.getSingleGradebook(id)
-    .then(response => {
-      this.gradebook = response.data
-      console.log(response.data)
-    })
-    .catch(e => {
-      console.log(e)
-    })
+  computed: {
+    studentCount() {
+      return this.gradebook.students.length;
+    }
+  },
+
+  created() {
+    let id = this.$route.params.id;
+    gradebookService
+      .getSingleGradebook(id)
+      .then(response => {
+        this.gradebook = response.data;
+        console.log(response.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
   }
-}
+};
 </script>
 
 <style>
-
 </style>

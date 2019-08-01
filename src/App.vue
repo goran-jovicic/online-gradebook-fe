@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <div class="container">
       <router-link to="/">Gradebooks</router-link> |
       <router-link v-if="!checker" to="/login">Login |</router-link>
       <a><span @click="logoutUser" v-if="checker"> Logout | </span></a>
@@ -8,7 +8,7 @@
       <router-link to="/teachers">All teachers</router-link> |
       <router-link to="/my-gradebook">My Gradebook</router-link> |
       <router-link to="/gradebooks/create">Add gradebook</router-link> |
-      <router-link to="/professors/create">Add professor</router-link> 
+      <router-link to="/teachers/create">Add professor</router-link> 
     </div>
     <router-view/>
   </div>
