@@ -6,8 +6,8 @@
       v-if="gradebook && gradebook.professor"
     >{{ `Razredni: ${gradebook.professor.user.first_name} ${gradebook.professor.user.last_name}` }}</h2>
     <h2 v-else>Nema razrednog staresinu</h2>
-    <h2 v-if="studentCount == 0">Nema trenutno studenata</h2>
-    <ul v-if="studentCount > 0" class="list-group">
+    <h2 v-if="studentCount == 0 && gradebook.students">Nema trenutno studenata</h2>
+    <ul v-if="studentCount > 0 && gradebook.students" class="list-group">
       Studenti:
       <li
         class="list-group-item list-group-item-primary"
@@ -20,7 +20,8 @@
 </template>
 
 <script>
-import { gradebookService } from "../services/GradebookService";
+import { gradebookService } from '../../services/GradebookService';
+
 
 export default {
   data() {
@@ -32,7 +33,7 @@ export default {
   methods: {
     handleAddStudent() {
       let id = this.$route.params.id;
-      this.$router.push(`/gradebooks/${id}/students/create`);
+      this.$router.push(`/gradebooks/${id}/students/create`)
     }
   },
 
@@ -48,10 +49,10 @@ export default {
       .getSingleGradebook(id)
       .then(response => {
         this.gradebook = response.data;
-        console.log(response.data);
+        console.log(response.data)
       })
       .catch(e => {
-        console.log(e);
+        console.log(e); /* eslint-disable */
       });
   }
 };

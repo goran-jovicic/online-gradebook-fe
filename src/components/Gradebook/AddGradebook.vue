@@ -18,15 +18,15 @@
       <div>
         <br>
         <button class="btn btn-primary" type="submit">Submit</button>
-        <button class="btn btn-danger">Cancel</button>
       </div>
     </form>
+        <button class="btn btn-danger" @click="routeToGradebooks">Cancel</button>
   </div>
 </template>
 
 <script>
-import { gradebookService } from '../services/GradebookService'
-import { professorService } from '../services/ProfessorService'
+import { gradebookService } from '../../services/GradebookService'
+import { professorService } from '../../services/ProfessorService'
 
 export default {
   data () {
@@ -42,8 +42,12 @@ export default {
 
   methods : {
     handleForm() {
-      console.log(this.newGradebook)
       gradebookService.createGradebook(this.newGradebook)
+      this.$router.push('/')
+    },
+
+    routeToGradebooks() {
+      this.$router.push('/')
     }
   },
 
@@ -51,7 +55,6 @@ export default {
     professorService.getProfessors()
     .then(r => {
       this.professors = r.data
-      console.log(r.data)
     })
   },
 

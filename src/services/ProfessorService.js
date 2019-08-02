@@ -13,6 +13,10 @@ export default class ProfessorService {
     getSingleProfessor(id) {
         return axios.get(`/teachers/${id}`)
     }
+
+    add(newProfessor){
+        return axios.post('/teachers', newProfessor)
+    }
 }
 
 export const professorService = new ProfessorService()

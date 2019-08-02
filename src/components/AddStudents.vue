@@ -33,7 +33,7 @@
           name="image_url"
         />
       </div>
-      <button class="btn btn-primary">Add new student</button>
+      <button class="btn btn-primary" @click="callFormAgain">Add new student</button>
       <br />
       <br />
       <button class="btn btn-primary" type="submit">Submit</button>

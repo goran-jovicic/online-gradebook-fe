@@ -19,7 +19,7 @@
           <h4>
             <router-link
               :to="singleProfessor(gradebook)"
-              v-if="gradebook.professor.user.id !== null"
+              v-if="gradebook.professor !== null"
             >
               {{ ` Profesor : ${gradebook.professor.user.first_name + ' ' + gradebook.professor.user.last_name}`
               ? ` Profesor : ${gradebook.professor.user.first_name + ' ' + gradebook.professor.user.last_name}`
@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { gradebookService } from "../services/GradebookService";
+import { gradebookService } from '../../services/GradebookService'
 
 export default {
   data() {
