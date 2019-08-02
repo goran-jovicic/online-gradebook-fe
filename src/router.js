@@ -9,11 +9,16 @@ import Professors from './components/Professors'
 import SingleProfessor from './components/SingleProfessor'
 import AddGradebook from './components/Gradebook/AddGradebook'
 import AddProfessor from './components/AddProfessor'
+import MyGradebook from './components/Gradebook/MyGradebook'
+import EditGradebook from './components/Gradebook/EditGradebook'
+
+import { authService } from './services/AuthService'
+
 
 
 Vue.use(Router)
 
-export default new Router({
+export const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
@@ -21,6 +26,11 @@ export default new Router({
       path : '/',
       name : 'gradebooks',
       component : Gradebooks
+    },
+    {
+      path : '/my-gradebook',
+      name : 'my-gradebook',
+      component : MyGradebook
     },
     {
       path: '/teachers/',
@@ -48,6 +58,11 @@ export default new Router({
       component : SingleGradebook
     },
     {
+      path: '/gradebooks/:id/edit',
+      name: 'edit-gradebook',
+      component : EditGradebook
+    },
+    {
       path: '/login',
       name : 'login',
       component : Login
@@ -63,4 +78,16 @@ export default new Router({
       component: AddStudents
     }
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.name !== 'login' && to.name !== 'register' && to.name !== 'gradebooks' && !authService.isAuthenticated()) {
+      return router.push({ name: 'login' });
+  }
+
+  if ((to.name === 'login' || to.name === 'register') && authService.isAuthenticated()) {
+      return router.push({ name: from.name });
+  }
+
+  next()
 })

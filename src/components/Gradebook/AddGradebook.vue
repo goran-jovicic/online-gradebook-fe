@@ -1,77 +1,97 @@
 <template>
   <div class="container">
     <form @submit.prevent="handleForm">
-      <br>
+      <br />
       <div class="form-group">
-        <label class="form-control" style="width:50%; margin:auto;" for="name">Name of gradebook : </label>
-        <input type="text" class="form-control" style="width:50%; margin:auto;" id="name" name="name" v-model="newGradebook.name"/>
+        <label class="form-control" style="width:50%; margin:auto;" for="name">Name of gradebook :</label>
+        <input
+          type="text"
+          class="form-control"
+          style="width:50%; margin:auto;"
+          id="name"
+          name="name"
+          v-model="newGradebook.name"
+          pattern=".{1,255}"
+          required
+          title="Max 255 characters"
+        />
       </div>
       <div>
-        <label class="form-control" style="width:50%; margin:auto;" for="professorName" >Choose professor :</label>
-        <select class="form-control" style="width:50%; margin:auto;" id="professorName" name="professorName" v-model="newGradebook.professor_id" >
-          <option v-for="(professor, index) in availableProfessors" :key="index" :value="professor.id">
-            {{ `${professor.user.first_name} ${professor.user.last_name}` }}
-          </option>
+        <label
+          class="form-control"
+          style="width:50%; margin:auto;"
+          for="professorName"
+        >Choose professor :</label>
+        <select
+          class="form-control"
+          style="width:50%; margin:auto;"
+          id="professorName"
+          name="professorName"
+          v-model="newGradebook.professor_id"
+        >
+          <option
+            v-for="(professor, index) in availableProfessors"
+            :key="index"
+            :value="professor.id"
+          >{{ `${professor.user.first_name} ${professor.user.last_name}` }}</option>
           {{ availableProfessors }}
         </select>
       </div>
       <div>
-        <br>
+        <br />
         <button class="btn btn-primary" type="submit">Submit</button>
       </div>
     </form>
-        <button class="btn btn-danger" @click="routeToGradebooks">Cancel</button>
+    <button class="btn btn-danger" @click="routeToGradebooks">Cancel</button>
   </div>
 </template>
 
 <script>
-import { gradebookService } from '../../services/GradebookService'
-import { professorService } from '../../services/ProfessorService'
+import { gradebookService } from "../../services/GradebookService";
+import { professorService } from "../../services/ProfessorService";
 
 export default {
-  data () {
+  data() {
     return {
       newGradebook: {
-        name : '',
-        professor_id : ''
+        name: "",
+        professor_id: ""
       },
 
       professors: []
-    }
+    };
   },
 
-  methods : {
+  methods: {
     handleForm() {
-      gradebookService.createGradebook(this.newGradebook)
-      this.$router.push('/')
+      gradebookService.createGradebook(this.newGradebook);
+      this.$router.push("/");
     },
 
     routeToGradebooks() {
-      this.$router.push('/')
+      this.$router.push("/");
     }
   },
 
-  created () {
-    professorService.getProfessors()
-    .then(r => {
-      this.professors = r.data
-    })
+  created() {
+    professorService.getProfessors().then(r => {
+      this.professors = r.data;
+    });
   },
 
-  computed : {
+  computed: {
     availableProfessors() {
       return this.professors.filter(professor => {
         return professor.gradebook === null;
-      })
+      });
     }
-  },
+  }
 };
 </script>
 
 <style>
 label {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   font-weight: bold;
 }
-
 </style>

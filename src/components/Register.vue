@@ -9,6 +9,9 @@
         id="first_name"
         name="first_name"
         v-model="user.first_name"
+        pattern=".{1,255}"
+        required
+        title="Max 255 characters"
       />
     </div>
     <div class="form-group">
@@ -20,6 +23,9 @@
         id="last_name"
         name="last_name"
         v-model="user.last_name"
+        pattern=".{1,255}"
+        required
+        title="Max 255 characters"
       />
     </div>
     <div class="form-group">
@@ -31,6 +37,9 @@
         id="email"
         name="email"
         v-model="user.email"
+        pattern=".{1,255}"
+        required
+        title="Max 255 characters"
       />
     </div>
     <div class="form-group">
@@ -42,6 +51,9 @@
         id="password"
         name="password"
         v-model="user.password"
+        pattern="(?=.*\d).{8,}" 
+        required
+        title="Min 8 characters, at least 1 digit"
       />
     </div>
     <div class="form-group">

@@ -30,8 +30,12 @@
         </div>
       </li>
     </ul>
+    <button class="btn btn-primary" @click="loadMore">Load More</button>
   </div>
 </template>
+
+Na kraju home stranice imam button “load more” 
+sa kojim mogu da učitam dodatnih 10 dnevnika. Ako nema više dnevnika za učitavanje, ovaj button se ne prikazuje.
 
 <script>
 import { gradebookService } from '../../services/GradebookService'
@@ -50,6 +54,10 @@ export default {
 
     singleProfessor(gradebook) {
       return `/teachers/${gradebook.professor_id}`;
+    },
+
+    loadMore() {
+      
     }
   },
 

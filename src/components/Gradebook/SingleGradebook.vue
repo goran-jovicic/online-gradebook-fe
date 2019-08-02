@@ -1,12 +1,14 @@
 <template>
   <div>
     <button class="btn btn-primary" @click="handleAddStudent">Add new Students</button>
+    <button class="btn btn-secondary" @click="handleEdit">Edit</button>
+    <button class="btn btn-danger" @click="handleDelete">Delete</button>
     <h1>{{ gradebook.name }}</h1>
     <h2
       v-if="gradebook && gradebook.professor"
     >{{ `Razredni: ${gradebook.professor.user.first_name} ${gradebook.professor.user.last_name}` }}</h2>
     <h2 v-else>Nema razrednog staresinu</h2>
-    <h2 v-if="studentCount == 0 && gradebook.students">Nema trenutno studenata</h2>
+    <h2 v-if="studentCount == 0 && !gradebook.students">Nema trenutno studenata</h2>
     <ul v-if="studentCount > 0 && gradebook.students" class="list-group">
       Studenti:
       <li
@@ -34,6 +36,20 @@ export default {
     handleAddStudent() {
       let id = this.$route.params.id;
       this.$router.push(`/gradebooks/${id}/students/create`)
+    },
+
+    handleEdit() {
+      let id = this.$route.params.id
+      this.$router.push(`/gradebooks/${id}/edit`)
+    },
+
+    handleDelete() {
+      if (window.confirm('Are you sure you want to delete this gradebook?')) {
+        let id = this.$route.params.id
+        gradebookService.deleteGradebook(id)
+        return this.$router.push('/')
+      }
+      return  
     }
   },
 

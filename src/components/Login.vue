@@ -9,7 +9,7 @@
         name="email"
         placeholder="Email Address"
         required
-        autofocus
+        
       />
       <input
         v-model="password"
@@ -39,7 +39,7 @@ export default {
       authService.login(this.email, this.password).then(() => {
         this.$router.push("/");
       });
-    }
+    },
   }
 };
 </script>

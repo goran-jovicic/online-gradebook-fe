@@ -17,6 +17,10 @@ export default class GradebookService {
     createGradebook(newGradebook){
         return axios.post('/gradebooks', newGradebook)
     }
+
+    deleteGradebook(id){
+        return axios.delete(`/gradebooks/${id}`)
+    }
 }
 
 export const gradebookService = new GradebookService()
