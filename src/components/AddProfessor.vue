@@ -44,25 +44,20 @@
           >{{ `${gradebook.name}` }}</option>
         </select>
       </div>
-      <!-- <select class="form-control" style="width:50%; margin:auto;" id="professorName" name="professorName" v-model="newGradebook.professor_id" >
-          <option v-for="(professor, index) in availableProfessors" :key="index" :value="professor.id">
-            {{ `${professor.user.first_name} ${professor.user.last_name}` }}
-          </option>
-          {{ availableProfessors }}
-      </select>-->
-
       <div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </div>
     </form>
+    <br>
     <div class="form-group">
       <button @click="newProfessor.showImageInput = true" class="btn btn-secondary">Add Image</button>
       <input
         v-if="newProfessor.showImageInput"
         type="url"
         class="form-control"
-        style="width:50%; margin:auto;"
+        style="width:50%; margin:auto; margin-top:1rem;"
         v-model="newProfessor.image_url"
+        placeholder="Add image url"
       />
     </div>
   </div>

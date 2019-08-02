@@ -1,28 +1,30 @@
 <template>
   <div id="app">
     <div class="container">
-      <router-link to="/">Gradebooks</router-link> |
+      <router-link to="/">Gradebooks</router-link>|
       <router-link v-if="!checker" to="/login">Login |</router-link>
-      <a><span @click="logoutUser" v-if="checker"> Logout </span></a>
-      <router-link v-if="!checker" to="/register"> Register</router-link> |
-      <router-link to="/teachers">All teachers</router-link> |
-      <router-link to="/my-gradebook">My Gradebook</router-link> |
-      <router-link to="/gradebooks/create">Add gradebook</router-link> |
-      <router-link to="/teachers/create">Add professor</router-link> 
+      <a>
+        <span @click="logoutUser" v-if="checker">Logout </span>
+      </a>
+      <router-link v-if="!checker" to="/register">Register</router-link>|
+      <router-link to="/teachers">All teachers </router-link>|
+      <router-link to="/my-gradebook">My Gradebook </router-link>|
+      <router-link to="/gradebooks/create">Add gradebook</router-link>|
+      <router-link to="/teachers/create">Add professor</router-link>
     </div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
 <script>
-import { authService } from "./services/AuthService"
+import { authService } from "./services/AuthService";
 
 export default {
   data() {
     return {
       isAuthenticated: authService.isAuthenticated(),
-      user: window.localStorage.getItem('user')
-    }
+      user: window.localStorage.getItem("user")
+    };
   },
 
   methods: {
@@ -33,9 +35,9 @@ export default {
   },
 
   created() {
-    this.$bus.$on('logged', () => {
-        this.isAuthenticated = authService.isAuthenticated()
-    })
+    this.$bus.$on("logged", () => {
+      this.isAuthenticated = authService.isAuthenticated();
+    });
   },
 
   computed: {
@@ -43,13 +45,13 @@ export default {
       return authService.isAuthenticated();
     }
   }
-}
+};
 </script>
 
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -60,5 +62,4 @@ export default {
 span {
   color: #007bff;
 }
-
 </style>

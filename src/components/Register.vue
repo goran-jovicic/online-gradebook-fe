@@ -51,7 +51,7 @@
         id="password"
         name="password"
         v-model="user.password"
-        pattern="(?=.*\d).{8,}" 
+        pattern="(?=.*\d).{8,}"
         required
         title="Min 8 characters, at least 1 digit"
       />

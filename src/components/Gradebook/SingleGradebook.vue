@@ -22,8 +22,7 @@
 </template>
 
 <script>
-import { gradebookService } from '../../services/GradebookService';
-
+import { gradebookService } from "../../services/GradebookService";
 
 export default {
   data() {
@@ -35,21 +34,21 @@ export default {
   methods: {
     handleAddStudent() {
       let id = this.$route.params.id;
-      this.$router.push(`/gradebooks/${id}/students/create`)
+      this.$router.push(`/gradebooks/${id}/students/create`);
     },
 
     handleEdit() {
-      let id = this.$route.params.id
-      this.$router.push(`/gradebooks/${id}/edit`)
+      let id = this.$route.params.id;
+      this.$router.push(`/gradebooks/${id}/edit`);
     },
 
     handleDelete() {
-      if (window.confirm('Are you sure you want to delete this gradebook?')) {
-        let id = this.$route.params.id
-        gradebookService.deleteGradebook(id)
-        return this.$router.push('/')
+      if (window.confirm("Are you sure you want to delete this gradebook?")) {
+        let id = this.$route.params.id;
+        gradebookService.deleteGradebook(id);
+        return this.$router.push("/");
       }
-      return  
+      return;
     }
   },
 
@@ -65,7 +64,7 @@ export default {
       .getSingleGradebook(id)
       .then(response => {
         this.gradebook = response.data;
-        console.log(response.data)
+        console.log(response.data);
       })
       .catch(e => {
         console.log(e); /* eslint-disable */

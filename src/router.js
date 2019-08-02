@@ -23,14 +23,14 @@ export const router = new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path : '/',
-      name : 'gradebooks',
-      component : Gradebooks
+      path: '/',
+      name: 'gradebooks',
+      component: Gradebooks
     },
     {
-      path : '/my-gradebook',
-      name : 'my-gradebook',
-      component : MyGradebook
+      path: '/my-gradebook',
+      name: 'my-gradebook',
+      component: MyGradebook
     },
     {
       path: '/teachers/',
@@ -40,7 +40,7 @@ export const router = new Router({
     {
       path: '/teachers/create',
       name: 'add-professor',
-      component : AddProfessor
+      component: AddProfessor
     },
     {
       path: '/teachers/:id',
@@ -49,32 +49,32 @@ export const router = new Router({
     },
     {
       path: '/gradebooks/create',
-      name : 'add-gradebook',
-      component : AddGradebook
+      name: 'add-gradebook',
+      component: AddGradebook
     },
     {
-      path : '/gradebooks/:id',
-      name : 'single-gradebook',
-      component : SingleGradebook
+      path: '/gradebooks/:id',
+      name: 'single-gradebook',
+      component: SingleGradebook
     },
     {
       path: '/gradebooks/:id/edit',
       name: 'edit-gradebook',
-      component : EditGradebook
+      component: EditGradebook
     },
     {
       path: '/login',
-      name : 'login',
-      component : Login
+      name: 'login',
+      component: Login
     },
     {
       path: '/register',
-      name :'register',
-      component : Register
+      name: 'register',
+      component: Register
     },
     {
       path: '/gradebooks/:id/students/create',
-      name : 'add-students',
+      name: 'add-students',
       component: AddStudents
     }
   ]
@@ -82,11 +82,11 @@ export const router = new Router({
 
 router.beforeEach((to, from, next) => {
   if (to.name !== 'login' && to.name !== 'register' && to.name !== 'gradebooks' && !authService.isAuthenticated()) {
-      return router.push({ name: 'login' });
+    return router.push({ name: 'login' });
   }
 
   if ((to.name === 'login' || to.name === 'register') && authService.isAuthenticated()) {
-      return router.push({ name: from.name });
+    return router.push({ name: from.name });
   }
 
   next()

@@ -33,7 +33,7 @@
             id="image_url"
             name="image_url"
           />
-          <hr>
+          <hr />
         </div>
       </div>
       <button class="btn btn-primary" type="submit">Submit</button>
@@ -48,18 +48,18 @@ import { gradebookService } from "../services/GradebookService";
 export default {
   data() {
     return {
-      first_name: '',
-      last_name: '',
+      first_name: "",
+      last_name: "",
       gradebook: {},
-      image_url : '',
-      inputs:[1],
-      counter: ''
+      image_url: "",
+      inputs: [1],
+      counter: ""
     };
   },
 
-  methods : {
+  methods: {
     duplicateForm() {
-      this.inputs.push(this.counter++)
+      this.inputs.push(this.counter++);
     }
   },
 
